@@ -7,17 +7,17 @@ int main(){
 
 	scanf("%d %d %d", &n1, &n2, &n3);
 
-	media = (n1 + n2 + n3)/3;
+	media = (float)(n1 + n2 + n3)/3;
 	
-	printf("Notas acima da média:");
-	if (n1 >= media){ 
+	printf("Notas acima da media:");
+	if ((float)n1 >= media){ 
 		printf(" %d", n1);
 	}
-	if (n2 >= media){ 
+	if ((float)n2 >= media){ 
 		printf(" %d", n2);
 	}
-	if (n3 >= media){ 
-		printf(" %d", n1);
+	if ((float)n3 >= media){ 
+		printf(" %d", n3);
 	}
 	printf("!");
 	
