@@ -7,11 +7,11 @@ int main () {
 
     while ((scanf("%d", &num)) == 1) {
         // scanf("%d%c", &num, &espaco);
-        if (num > 0) {
+        if (num > 0 && num < 100) {
             somapos+=num;
             qtdpos++;
             }
-        else {
+        else if (num < 0 && num > -100){
             somaneg += num;
             qtdneg++;
         }
