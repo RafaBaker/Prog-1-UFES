@@ -66,6 +66,7 @@ int main () {
 
     scanf("%d", &qtd);
     for (;i < qtd; i++) {
+        
         scanf("%d %c %d %d %d", &id, &sexo, &nota1, &nota2, &nota3);
         // Organizar as notas em ordem e armarzenar elas em maiornota1A, maiornota2A, maiornota3A
         maiornota1A = maiorValor(nota1, nota2, nota3);
@@ -73,7 +74,18 @@ int main () {
         maiornota3A = valorMeio(nota1, nota2, nota3);
 
         if (sexo == 'M') {
-            
+            if (maiornota1A > maiorM) {
+                maiorM = maiornota1A;
+                maior2M = maiornota2A;
+                maior3M = maiornota3A;
+                maiorID = id;
+            }
+        } else {
+            if (maiornota1A > maiorF) {
+                maiorF = maiornota1A;
+                maior2F = maiornota2A;
+                maior3F = maiornota3A;
+            }
         }
     }
 
