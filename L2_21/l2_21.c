@@ -73,7 +73,7 @@ int main () {
             scanf("%d", &n9);
             break;
     }
-    
+    scanf("%*c");
     scanf("%*c");
     scanf("%c", &texto);
     while (texto != '"') {
@@ -81,35 +81,36 @@ int main () {
             scanf("%d", &i);
             if (i > qtdconj || i < 1) {
                 printf("ERRO");
-            }
-            switch (i) {
-                case 1:
-                    printf("%d", n1);
-                    break;
-                case 2:
-                    printf("%d", n2);
-                    break;
-                case 3:
-                    printf("%d", n3);
-                    break;
-                case 4:
-                    printf("%d", n4);
-                    break;
-                case 5:
-                    printf("%d", n5);
-                    break;
-                case 6:
-                    printf("%d", n6);
-                    break;
-                case 7:
-                    printf("%d", n7);
-                    break;
-                case 8:
-                    printf("%d", n8);
-                    break;
-                case 9:
-                    printf("%d", n9);
-                    break;
+            } else {
+                switch (i) {
+                    case 1:
+                        printf("%d", n1);
+                        break;
+                    case 2:
+                        printf("%d", n2);
+                        break;
+                    case 3:
+                        printf("%d", n3);
+                        break;
+                    case 4:
+                        printf("%d", n4);
+                        break;
+                    case 5:
+                        printf("%d", n5);
+                        break;
+                    case 6:
+                        printf("%d", n6);
+                        break;
+                    case 7:
+                        printf("%d", n7);
+                        break;
+                    case 8:
+                        printf("%d", n8);
+                        break;
+                    case 9:
+                        printf("%d", n9);
+                        break;
+                }
             }
         } else {
             printf("%c", texto);
