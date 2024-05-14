@@ -14,6 +14,26 @@ int area (int x1, int y1, int x2, int y2)
     return a;
 }
 
+int achaIntersecao(int r1x1, int r1y1, int r1x2, int r1y2, int r2x1, int r2y1) 
+{
+    int result = 0;
+    if ((r2x1 > r1x1 && r2x1 < r1x2) && (r2y1 > r1y1 && r2y1 < r1y2)) result = 1;
+    return result;
+}
+
+int calculaIntersecao(int r1x2, int r1y2, int r2x1, int r2y1) 
+{
+    int b = 0;
+    int h = 0;
+    int a = 0;
+
+    b = r1x2 - r2x1;
+    h = r1y2 - r2y1;
+    a = b*h;
+
+    return a;
+}
+
 int area_total (int r1_x1, int r1_y1, int r1_x2, int r1_y2, int r2_x1, int r2_y1, int r2_x2, int r2_y2)
 {
     int a1 = 0;
@@ -31,12 +51,18 @@ int main () {
 
     int r1x1 = 0, r1y1 = 0, r1x2 = 0, r1y2= 0;
     int r2x1 = 0, r2y1 = 0, r2x2 = 0, r2y2= 0;
-    int area = 0;
+    int area = 0, intersecao = 0;
 
     scanf("%d %d %d %d", &r1x1, &r1y1, &r1x2, &r1y2);
     scanf("%d %d %d %d", &r2x1, &r2y1, &r2x2, &r2y2);
 
     area = area_total(r1x1, r1y1, r1x2, r1y2, r2x1, r2y1, r2x2, r2y2);
+    if (achaIntersecao(r1x1, r1y1, r1x2, r1y2, r2x1, r2y1))
+    {
+        intersecao = calculaIntersecao(r1x2, r1y2, r2x1, r2y1);
+        area = area - intersecao;
+        // printf("VALOR INTERSECAO %d\n", intersecao);
+    }
     printf("RESP:%d", area);
 
     return 0;
