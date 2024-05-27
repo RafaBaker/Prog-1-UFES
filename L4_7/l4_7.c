@@ -160,31 +160,23 @@ float TamanhoReta(tReta reta)
 int main ()
 {
     int n = 0, i;
-    float distIni = 0.0, distFim = 0.0;
-    tPonto ponto;
+    int q1 = 0, q2 = 0;
     tReta reta;
-    tPonto pontoIni, pontoFim;
-
 
     scanf("%d", &n);
 
     for (i = 0; i < n; i++)
     {
-        ponto = LePonto();
         reta = LeReta();
+        q1 = identificaQuadrante(reta.p1);
+        q2 = identificaQuadrante(reta.p2);
 
-        pontoFim = PontoFinal(reta);
-        pontoIni = PontoInicial(reta);
-
-        distFim = DistanciaPontos(ponto, pontoFim);
-        distIni = DistanciaPontos(ponto, pontoIni);
-
-        if (distFim == distIni)
-            printf("EQUIDISTANTE\n");
-        else if (distFim < distIni)
-            printf("FIM\n");
+        if (q1 == 0 && q2 == 0)
+            printf("DIFERENTE\n");
+        else if (q1 == q2)
+            printf("MESMO\n");
         else
-            printf("INICIO\n"); 
+            printf("DIFERENTE\n");
     }
 
     return 0;
