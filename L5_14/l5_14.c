@@ -84,25 +84,6 @@ int ComparaString(char *str1, char *str2)
     return 0;
 }
 
-void OrdenaVetorPorCodigo(tCandidato vet[], int tam)
-{
-    int i;
-    int j;
-    int min;
-    tCandidato aux;
-    for (i = 0; i < tam-1; i++) {
-        //O menor sempre vai estar no inicio, então para descobrir o minimo é necessario começar do indice i
-        min = i;
-        //For para achar o index do menor
-        for (j = i+1; j < tam; j++)
-            if (vet[j].codigo < vet[min].codigo)
-                min = j;
-        aux = vet[i]; 
-        vet[i] = vet[min]; 
-        vet[min] = aux; 
-   }
-}
-
 void ImprimeSobrenomeRepetido(tCandidato vet[], int tam)
 {
     int i, j;
