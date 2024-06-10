@@ -12,6 +12,8 @@ typedef struct
     int id;
     int dimensao;
     int tabela[MAX_DIMENSAO][MAX_DIMENSAO];
+    int tabelaOriginal[MAX_DIMENSAO][MAX_DIMENSAO];
+    int limpa;
 } tCartela;
 
 tCartela LeCartela();
@@ -22,13 +24,17 @@ void MarcaCartela(int num, tCartela cartela);
 
 int VenceuCartela(tCartela cartela);
 
+void ResetaCartela(tCartela cartela);
+
+int EstaLimpa(tCartela cartela);
+
 // PARTIDAS
 typedef struct
 {
     tCartela cartelas[MAX_CARTELAS];
-    tCartela cartelasOriginais[MAX_CARTELAS];
     int qtd;
     int acabou;
+    //index das cartelas vencedoras
     int cartelasVencedoras[MAX_CARTELAS];
     int qtdCartelasVencedoras;
 } tPartida;
@@ -37,7 +43,7 @@ tPartida LeCartelasPartida();
 
 void ImprimeCartelasVencedoras(tPartida partida);
 
-void ResetaPartida(tPartida partida);
+tPartida ResetaPartida(tPartida partida);
 
 void JogaPartida(tPartida partida);
 
@@ -73,6 +79,7 @@ tCartela LeCartela()
         {
             scanf("%d", &num);
             cartela.tabela[j][i] = num;
+            cartela.tabelaOriginal[j][i] = num;
         }
     }
 
@@ -103,7 +110,10 @@ void MarcaCartela(int num, tCartela cartela)
     for (i = 0; i < cartela.dimensao; i++)
         for (j = 0; j < cartela.dimensao; j++)
             if (num == cartela.tabela[i][j])
+            {
                 cartela.tabela[i][j] = MARCACAO;
+                cartela.limpa = FALSE;
+            }
 }
 
 int VenceuCartela(tCartela cartela)
@@ -117,6 +127,23 @@ int VenceuCartela(tCartela cartela)
     return venceu; 
 }
 
+void ResetaCartela(tCartela cartela)
+{
+    int i, j;
+
+    for (i = 0; i < cartela.dimensao; i++)
+        for (j = 0; j < cartela.dimensao; j++)
+            cartela.tabela[i][j] = cartela.tabelaOriginal[i][j];
+
+    cartela.limpa = TRUE;
+}
+
+int EstaLimpa(tCartela cartela)
+{
+    return cartela.limpa;
+}
+
+
 tPartida LeCartelasPartida()
 {
     tPartida partida;
@@ -129,8 +156,10 @@ tPartida LeCartelasPartida()
     {
         cartela = LeCartela();
         partida.cartelas[i] = cartela;
-        partida.cartelasOriginais[i] = cartela;
+
+        partida.cartelasVencedoras[i] = -1;
     }
+    partida.qtdCartelasVencedoras = 0;
     partida.acabou = FALSE;
 
     return partida;
@@ -147,14 +176,29 @@ void ImprimeCartelasVencedoras(tPartida partida)
         for (i = 0; i < partida.qtdCartelasVencedoras; i++)
         {
             v = partida.cartelasVencedoras[i];
-            ImprimeCartela(partida.cartelasOriginais[i]);
+            ResetaCartela(partida.cartelas[v]);
+            ImprimeCartela(partida.cartelas[v]);
         }
     }
 }
 
-void ResetaPartida(tPartida partida)
+tPartida ResetaPartida(tPartida partida)
 {
-      
+    int i;
+
+    for (i = 0; i < partida.qtd; i++)
+    {
+        if (!(EstaLimpa(partida.cartelas[i])))
+            ResetaCartela(partida.cartelas[i]);
+    }
+
+    for (i = 0; i < partida.qtdCartelasVencedoras; i++)
+    {
+        partida.cartelasVencedoras[i] = -1;
+    }
+    partida.qtdCartelasVencedoras = 0;
+
+    
 }
 
 void JogaPartida(tPartida partida)
