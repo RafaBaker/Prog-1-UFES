@@ -176,7 +176,7 @@ void ImprimeMensagens(tMensagens mensagens, int qtd)
         if (PegaIDMsg(mensagens.pacotes[i]) != j)
         {
             printf("\n");
-            j++;
+            j = PegaIDMsg(mensagens.pacotes[i]);
         }
         if (VerificaErro(mensagens.pacotes[i]))
             printf("##FALHA##");
