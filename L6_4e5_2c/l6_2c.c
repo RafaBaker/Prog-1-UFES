@@ -24,7 +24,7 @@ void MarcaCartela(int num, tCartela cartela);
 
 int VenceuCartela(tCartela cartela);
 
-void ResetaCartela(tCartela cartela);
+tCartela ResetaCartela(tCartela cartela);
 
 int EstaLimpa(tCartela cartela);
 
@@ -127,15 +127,17 @@ int VenceuCartela(tCartela cartela)
     return venceu; 
 }
 
-void ResetaCartela(tCartela cartela)
+tCartela ResetaCartela(tCartela cartela)
 {
     int i, j;
+    tCartela cartelaLimpa;
 
     for (i = 0; i < cartela.dimensao; i++)
         for (j = 0; j < cartela.dimensao; j++)
-            cartela.tabela[i][j] = cartela.tabelaOriginal[i][j];
+            cartelaLimpa.tabela[i][j] = cartela.tabelaOriginal[i][j];
 
-    cartela.limpa = TRUE;
+    return cartelaLimpa;
+
 }
 
 int EstaLimpa(tCartela cartela)
@@ -168,6 +170,7 @@ tPartida LeCartelasPartida()
 void ImprimeCartelasVencedoras(tPartida partida)
 {
     int i, v;
+    tCartela cartelaLimpa;
     if (partida.qtdCartelasVencedoras == 0)
         printf("SEM VENCEDOR\n");
     else
@@ -176,8 +179,8 @@ void ImprimeCartelasVencedoras(tPartida partida)
         for (i = 0; i < partida.qtdCartelasVencedoras; i++)
         {
             v = partida.cartelasVencedoras[i];
-            ResetaCartela(partida.cartelas[v]);
-            ImprimeCartela(partida.cartelas[v]);
+            cartelaLimpa = ResetaCartela(partida.cartelas[v]);
+            ImprimeCartela(cartelaLimpa);
         }
     }
 }
@@ -185,6 +188,7 @@ void ImprimeCartelasVencedoras(tPartida partida)
 tPartida ResetaPartida(tPartida partida)
 {
     int i;
+    tPartida partidaResetada;
 
     for (i = 0; i < partida.qtd; i++)
     {
