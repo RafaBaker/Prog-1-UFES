@@ -20,7 +20,7 @@ tCartela LeCartela();
 
 void ImprimeCartela(tCartela cartela);
 
-void MarcaCartela(int num, tCartela cartela);
+tCartela MarcaCartela(int num, tCartela cartela);
 
 int VenceuCartela(tCartela cartela);
 
@@ -104,16 +104,20 @@ void ImprimeCartela(tCartela cartela)
     }
 }
 
-void MarcaCartela(int num, tCartela cartela)
+tCartela MarcaCartela(int num, tCartela cartela)
 {
     int i, j;
     for (i = 0; i < cartela.dimensao; i++)
         for (j = 0; j < cartela.dimensao; j++)
+        {
             if (num == cartela.tabela[i][j])
             {
                 cartela.tabela[i][j] = MARCACAO;
                 cartela.limpa = FALSE;
             }
+        }
+
+    return cartela;
 }
 
 int VenceuCartela(tCartela cartela)
@@ -130,7 +134,7 @@ int VenceuCartela(tCartela cartela)
 tCartela ResetaCartela(tCartela cartela)
 {
     int i, j;
-    tCartela cartelaLimpa;
+    tCartela cartelaLimpa = cartela;
 
     for (i = 0; i < cartela.dimensao; i++)
         for (j = 0; j < cartela.dimensao; j++)
@@ -188,21 +192,21 @@ void ImprimeCartelasVencedoras(tPartida partida)
 tPartida ResetaPartida(tPartida partida)
 {
     int i;
-    tPartida partidaResetada;
+    tPartida partidaLimpa = partida;
 
     for (i = 0; i < partida.qtd; i++)
     {
         if (!(EstaLimpa(partida.cartelas[i])))
-            ResetaCartela(partida.cartelas[i]);
+            partidaLimpa.cartelas[i] = ResetaCartela(partida.cartelas[i]);
     }
 
     for (i = 0; i < partida.qtdCartelasVencedoras; i++)
     {
-        partida.cartelasVencedoras[i] = -1;
+        partidaLimpa.cartelasVencedoras[i] = -1;
     }
     partida.qtdCartelasVencedoras = 0;
 
-    
+    return partidaLimpa;
 }
 
 void JogaPartida(tPartida partida)
@@ -219,11 +223,13 @@ void JogaPartida(tPartida partida)
 
         for (i = 0; i < partida.qtd; i++)
         {
-            MarcaCartela(num, partida.cartelas[i]);
+            partida.cartelas[i] = MarcaCartela(num, partida.cartelas[i]);
             if (VenceuCartela(partida.cartelas[i]))
+            {
                 partida.cartelasVencedoras[j] = i;
                 j++;
                 venceu = TRUE;
+            }
         }
         partida.qtdCartelasVencedoras = j;
     }
