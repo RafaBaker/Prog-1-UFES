@@ -20,7 +20,7 @@ int main ()
 
         while (1)
         {
-            scanf("%d", &n2);
+            scanf("%d", &n2);  
             if (n2 == -1) break;
 
             DeslocaDireita(n2, seq, n1);
